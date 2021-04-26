@@ -1,13 +1,13 @@
 # Technical interview preparation:
 
-. You are not allowed to google anything
-. Whiteboard first
+#### You are not allowed to google anything
+#### Whiteboard first
 ## Write a function in C that inserts a number into a sorted singly linked list.
 
-Prototype: ```listint_t *insert_node(listint_t **head, int number);```
-Return: the address of the new node, or ```NULL``` if it failed
+##### Prototype: ```listint_t *insert_node(listint_t **head, int number);```
+##### Return: the address of the new node, or ```NULL``` if it failed
 
 ### Author
-Aymen Haddaji
-```https://github.com/Aymen-haddaji-hub ```
-```aymensystem7@gmail.com ```
+##### Aymen Haddaji
+##### ```https://github.com/Aymen-haddaji-hub ```
+##### ```aymensystem7@gmail.com ```
