@@ -11,3 +11,27 @@
 ##### Aymen Haddaji
 ##### ```https://github.com/Aymen-haddaji-hub ```
 ##### ```aymensystem7@gmail.com ```
+compilation : ``` gcc -Wall -Werror -Wextra -pedantic 0-main.c linked_lists.c 0-insert_number.c -o insert```
+##### expected output:
+```
+aymen@ubuntu:~/holbertonschool-interview/0x01-insert_in_sorted_linked_list$ ./insert 
+0
+1
+2
+3
+4
+98
+402
+1024
+-----------------
+0
+1
+2
+3
+4
+27
+98
+402
+1024
+aymen@ubuntu:~/holbertonschool-interview/0x01-insert_in_sorted_linked_list$ 
+```
