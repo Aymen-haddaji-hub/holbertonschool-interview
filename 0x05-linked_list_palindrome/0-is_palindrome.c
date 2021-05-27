@@ -3,31 +3,25 @@
 #include "lists.h"
 
 /**
- * recursive_palindrome - checks if a singly linked list is a palindrome.
+ * rec_pal - checks if a singly linked list is a palindrome.
  *
  * @left: left side
  * @right: right side
  * Return: 0 if it is not a palindrome 1 if it is a palindrome.
  */
 
-int recursive_palindrome(listint_t **left, listint_t *right)
+int rec_pal(listint_t **left, listint_t *right)
 {
+	int data;
+
 	if (right == NULL)
 		return (1);
 
-
-	int ispalindrome = recursive_palindrome(left, right->next);
-
-	if (ispalindrome == 0)
-		return (0);
-
-
-	int ispalindrome1 = (right->n == (*left)->n);
-
+	data = rec_pal(left, right->next) && ((*left)->n == right->n);
 
 	*left = (*left)->next;
 
-	return (ispalindrome1);
+	return (data);
 }
 /**
  * is_palindrome - checks if a singly linked list is a palindrome.
@@ -37,6 +31,6 @@ int recursive_palindrome(listint_t **left, listint_t *right)
 
 int is_palindrome(listint_t **head)
 {
-	return (recursive_palindrome(head, *head));
+	return (rec_pal(head, *head));
 
 }
