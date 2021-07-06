@@ -19,3 +19,8 @@ A level 2 sponge is a 3x3 square of level 1 sponges, except for the center one, 
 …
 TIP: The size of a level N Menger sponge is calculated as follows: 3^N
 ```
+
+### how to compile :
+```
+gcc -Wall -Wextra -Werror -pedantic -o 0-menger 0-menger.c 0-main.c -lm
+```
