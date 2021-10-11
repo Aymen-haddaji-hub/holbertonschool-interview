@@ -1,50 +1,39 @@
 #!/usr/bin/python3
-"""  a recursive function that queries the Reddit API """
+""" Reddit hot article word count """
 import requests
-from sys import argv
 
 
-def list_creator(hot_subreddits, posts, posts_len):
-    """ Creates a list"""
-    i = 0
-    while i < posts_len:
-        hot_subreddits.append(posts[i]['data']['title'])
-        i += 1
-    return (hot_subreddits)
-
-
-def count_words(subreddit, word_list, hot_subreddits=[], after=None):
-    """ a recursive function that queries the Reddit API """
-
-    if len(argv) < 2:
-        return (None)
+def count_words(subreddit, word_list, after='', words_counting={}):
+    """ Word counting function """
 
     url = "https://www.reddit.com/r/{}/hot.json".format(subreddit)
-    header = {'User-Agent': 'python3:holberton.task:v1.0'}
+    headers = {'User-Agent': 'custom'}
     payload = {'limit': '100', 'after': after}
-    request = requests.get(url, params=payload, headers=header)
-    if request.status_code == 200:
-        about = request.json()
-        posts = about['data']['children']
-        posts_len = len(posts)
-        if posts_len != 0:
-            (list_creator(hot_subreddits, posts, posts_len))
-        else:
-            None
-        after = about['data']['after']
-        if after is not None:
-            return (count_words(subreddit, word_list, hot_subreddits, after))
-        else:
-            count_dict = {}
-            for word in argv[2].split():
-                ocurrences = 0
-                for title in hot_subreddits:
-                    ocurrences += title.lower().count(word.lower())
-                if word.lower() not in count_dict.keys():
-                    count_dict[word.lower()] = ocurrences
-            count_sorted = sorted(count_dict, key=count_dict.get, reverse=True)
-            for key in count_sorted:
-                if count_dict[key] > 0:
-                    print("{}: {}".format(key, count_dict[key]))
+    response = requests.get(url, headers=headers,
+                            params=payload, allow_redirects=False)
+
+    if not response.status_code == 200:
+        return
+    data = response.json().get('data')
+    after = data.get('after')
+    children_list = data.get('children')
+
+    for child in children_list:
+        title = child.get('data').get('title')
+        for word in word_list:
+            ocurrences = title.lower().split().count(word.lower())
+            if ocurrences > 0:
+                if word in words_counting:
+                    words_counting[word] += ocurrences
+                else:
+                    words_counting[word] = ocurrences
+
+    if after is not None:
+        return count_words(subreddit, word_list, after, words_counting)
     else:
-        return None
+        if not len(words_counting) > 0:
+            return
+        iterator = sorted(words_counting.items(),
+                          key=lambda kv: (-kv[1], kv[0]))
+        for key, value in iterator:
+            print('{}: {}'.format(key.lower(), value))
