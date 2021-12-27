@@ -36,7 +36,6 @@ void radix_count(int *array, int size, int digit)
 	{
 		free(count);
 		free(output);
-		exit(EXIT_FAILURE);
 	}
 	for (i = 0; i <= maximum(array, size); i++)
 		count[i] = 0;
