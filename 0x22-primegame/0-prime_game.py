@@ -9,22 +9,23 @@ def isWinner(x, nums):
     if not nums or x < 1:
         return None
     max_num = max(nums)
-    filters = [True for i in range(max(max_num + 1, 2))]
+    tmp = [True for _ in range(max(max_num + 1, 2))]
     for i in range(2, int(pow(max_num, 0.5)) + 1):
-        if filters[i]:
-            for j in range(i * i, max_num + 1, i):
-                filters[j] = False
-    filters[0] = filters[1] = False
+        if not tmp[i]:
+            continue
+        for j in range(i * i, max_num + 1, i):
+            tmp[j] = False
+    tmp[0] = tmp[1] = False
     a = 0
-    for i in range(len(filters)):
-        if filters[i]:
+    for i in range(len(tmp)):
+        if tmp[i]:
             a += 1
-        filters[i] = a
-    player_1 = 0
+        tmp[i] = a
+    p_1 = 0
     for max_num in nums:
-        player_1 += filters[max_num] % 2 == 1
-    if player_1 * 2 == len(nums):
+        p_1 += tmp[max_num] % 2 == 1
+    if p_1 * 2 == len(nums):
         return None
-    if player_1 * 2 > len(nums):
+    if p_1 * 2 > len(nums):
         return "Maria"
     return "Ben"
