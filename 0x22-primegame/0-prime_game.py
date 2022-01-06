@@ -6,7 +6,7 @@ def isWinner(x, nums):
     """
     Function that returns the winner of the game"""
 
-    if not nums:
+    if not nums or x < 1:
         return None
     max_num = max(nums)
     filters = [True for i in range(max(max_num + 1, 2))]
